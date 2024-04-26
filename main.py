@@ -8,6 +8,7 @@ from core.config import settings
 from core.constants import HTML, RQUID
 from gigachat import GigaChat
 from handlers import bot_messagers, user_commands
+from keyboards.main_menu import set_main_menu
 
 bot = Bot(token=settings.telegram_token, parse_mode=HTML,)
 chat = GigaChat(settings.authorization, RQUID,)
@@ -21,6 +22,7 @@ async def main():
         ready_resume.router,
         bot_messagers.router,
     )
+    await set_main_menu(bot)
     await bot.delete_webhook(drop_pending_updates=True,)
     await dp.start_polling(bot,)
 
